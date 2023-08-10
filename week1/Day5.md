@@ -147,10 +147,97 @@ ALTER TABLE STUDENTS ADD COLUMN age integer;
 INSERT INTO STUDENTS (STUD_ID, F_NAME ,L_NAME,F_PHONE,L_PHONE,birth_date,D_ID,age) VALUES (15,'davd','ayman',0122,5555,'9/1/2001',3,20); 
 
 
+SELECT * FROM cd.facilities
+
+SELECT name, membercost FROM cd.facilities
+
+SELECT * FROM cd.facilities WHERE membercost > 0 ;
+
+
+SELECT facid , name , membercost,monthlymaintenance 
+FROM cd.facilities 
+WHERE
+membercost > 0 and 
+(membercost < monthlymaintenance/50.0);
+
+SELECT *
+	FROM cd.facilities 
+	WHERE
+			name like '%Tennis%';
+			
+			
+SELECT * FROM cd.facilities WHERE facid in (1,5)
+
+
+SELECT name , 
+		case when (monthlymaintenance > 100)then 
+						'expensive'
+		else 
+		 				'cheap '
+		end as cost 
+			from cd.facilities;          
+
+ 
+ 
+ SELECT memid , surname, firstname , joindate FROM cd.members WHERE joindate >= '2012-9-1'
+ 
+ 
+ SELECT DISTINCT surname 
+	FROM cd.members 
+ORDER BY surname
+limit 10 ;
 
 
 
+SELECT name FROM cd.facilities 
+union 
+SELECT surname FROM cd.members;
 
+
+SELECT max(joindate) as latest
+		from cd.members;
+		
+		
+		
+
+select firstname, surname, joindate
+		from cd.members 
+		where joindate= 
+				(select max(joindate)
+				from cd.members);
+				
+				
+select bks.starttime 
+	from 
+		cd.bookings bks
+		inner join cd.members mems
+			on mems.memid = bks.memid
+	where 
+		mems.firstname='David' 
+		and mems.surname='Farrell';        
+		
+		
+insert into cd.facilities 
+	(facid, name, membercost, guestcost, initialoutlay, monthlymaintenance) 
+	select 9,'spa',20,30,100000,800
+	union all
+	select 10,'squash court 2', 3.5,17.5,5000,80 ; 
+
+insert into cd.facilities
+    (facid, name, membercost, guestcost, initialoutlay, monthlymaintenance)
+    select (select max(facid) from cd.facilities)+1, 'Spa', 20, 30, 100000, 800;          
+    
+    
+ update cd.facilities
+    set initialoutlay = 10000;
+
+update cd.facilities
+    set
+        membercost = 6,
+        guestcost = 30
+    where facid in (0,1);     
+    
+    
 
 
 
