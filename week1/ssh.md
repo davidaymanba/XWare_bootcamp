@@ -1,6 +1,6 @@
 # terminal connect to github by SSH
 
-```
+```bash
 ssh-keygen -t rsa -b 4096 -C "aymandavid850@gmail.com" 
 cat /c/Users/Amoun/.ssh/id_rsa.pub
 ssh -T git@github.com
